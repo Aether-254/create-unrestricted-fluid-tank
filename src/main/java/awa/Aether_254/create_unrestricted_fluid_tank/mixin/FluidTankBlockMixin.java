@@ -7,15 +7,15 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(FluidTankBlock.class)
-abstract class FluidTankBlockMixin {
-    @Shadow
-    protected abstract void registerDefaultState(BlockState state);
+abstract class FluidTankBlockMixin extends Block {
+    protected FluidTankBlockMixin(Properties properties) {
+        super(properties);
+    }
 
     @Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
     private void cuft$addAxis(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo ci) {
