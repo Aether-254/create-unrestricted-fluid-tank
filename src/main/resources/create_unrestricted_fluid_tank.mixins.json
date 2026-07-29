@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "awa.Aether_254.create_unrestricted_fluid_tank.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "BlockItemMixin",
+    "FluidTankBlockMixin",
+    "FluidTankBlockEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,4 +1,4 @@
-package awa.Aether_254.create_unrestricted_vault;
+package awa.Aether_254.create_unrestricted_fluid_tank;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -7,13 +7,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import net.neoforged.fml.loading.FMLPaths;
 
-public final class UnrestrictedVaultConfig {
+public final class UnrestrictedFluidTankConfig {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    private static final Path PATH = FMLPaths.CONFIGDIR.get().resolve("create_unrestricted_vault.json");
-
+    private static final Path PATH =
+        FMLPaths.CONFIGDIR.get().resolve("create_unrestricted_fluid_tank.json");
     private static Data data = new Data();
 
-    private UnrestrictedVaultConfig() {
+    private UnrestrictedFluidTankConfig() {
     }
 
     public static Data get() {
@@ -29,12 +29,12 @@ public final class UnrestrictedVaultConfig {
         } catch (IOException | RuntimeException ignored) {
             data = new Data();
         }
-        sanitize();
         save();
     }
 
     public static void save() {
-        sanitize();
+        data.maxWidth = Math.max(1, Math.min(64, data.maxWidth));
+        data.maxLength = Math.max(1, Math.min(4096, data.maxLength));
         try {
             Files.createDirectories(PATH.getParent());
             Files.writeString(PATH, GSON.toJson(data));
@@ -42,20 +42,10 @@ public final class UnrestrictedVaultConfig {
         }
     }
 
-    private static void sanitize() {
-        data.maxWidth = Math.max(1, Math.min(data.maxWidth, 1024));
-        data.maxLengthMultiplier = Math.max(1, Math.min(data.maxLengthMultiplier, 4096));
-    }
-
-    public static int maxLength(int width) {
-        long length = (long) width * data.maxLengthMultiplier;
-        return (int) Math.min(length, Integer.MAX_VALUE);
-    }
-
     public static final class Data {
         public boolean enabled = true;
-        public boolean verticalVaultsEnabled = true;
-        public int maxWidth = 16;
-        public int maxLengthMultiplier = 16;
+        public boolean horizontalTanksEnabled = true;
+        public int maxWidth = 3;
+        public int maxLength = 32;
     }
 }

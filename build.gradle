@@ -20,6 +20,16 @@ neoForge {
             sourceSet sourceSets.main
         }
     }
+
+    runs {
+        client {
+            client()
+        }
+        server {
+            server()
+            programArgument "--nogui"
+        }
+    }
 }
 
 repositories {
