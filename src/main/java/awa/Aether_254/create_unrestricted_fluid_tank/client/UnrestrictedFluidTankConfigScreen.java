@@ -36,13 +36,13 @@ public final class UnrestrictedFluidTankConfigScreen {
             .setSaveConsumer(value -> config.horizontalTanksEnabled = value)
             .build());
         category.addEntry(entries.startIntField(Component.literal("Maximum cross-section width"), config.maxWidth)
-            .setDefaultValue(3)
+            .setDefaultValue(64)
             .setMin(1)
             .setMax(64)
             .setSaveConsumer(value -> config.maxWidth = value)
             .build());
         category.addEntry(entries.startIntField(Component.literal("Maximum tank length"), config.maxLength)
-            .setDefaultValue(32)
+            .setDefaultValue(4096)
             .setMin(1)
             .setMax(4096)
             .setSaveConsumer(value -> config.maxLength = value)

@@ -25,6 +25,10 @@ public final class UnrestrictedFluidTankConfig {
             if (Files.isRegularFile(PATH)) {
                 Data loaded = GSON.fromJson(Files.readString(PATH), Data.class);
                 data = loaded == null ? new Data() : loaded;
+                if (data.maxWidth == 3 && data.maxLength == 32) {
+                    data.maxWidth = 64;
+                    data.maxLength = 4096;
+                }
             }
         } catch (IOException | RuntimeException ignored) {
             data = new Data();
@@ -45,7 +49,7 @@ public final class UnrestrictedFluidTankConfig {
     public static final class Data {
         public boolean enabled = true;
         public boolean horizontalTanksEnabled = true;
-        public int maxWidth = 3;
-        public int maxLength = 32;
+        public int maxWidth = 64;
+        public int maxLength = 4096;
     }
 }
